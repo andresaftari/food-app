@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_header"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:background="#DDDDDD"
+    app:cardCornerRadius="16dp"
+    tools:showIn="@layout/activity_main">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/pager_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="160dp"
+                android:layout_marginBottom="45dp"
+                android:background="#DFDFDF" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="80dp"
+                android:layout_marginBottom="15dp"
+                android:background="#DFDFDF" />
+        </RelativeLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
+</com.google.android.material.card.MaterialCardView>

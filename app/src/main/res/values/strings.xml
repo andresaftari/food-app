@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Food API</string>
+
+    <!-- Alert -->
+    <string name="connection_error">No internet connection!</string>
+
+    <!-- Components -->
+    <string name="search_recipe">Search recipe</string>
+    <string name="food_category">Food Categories</string>
+</resources>
