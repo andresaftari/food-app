@@ -8,7 +8,7 @@ class ApiUtils {
     // getAPI will connect and redirect the Base URL with the path provided in ApiService
     fun getAPI(): ApiService = ApiClient().retrofit().create(ApiService::class.java)
 
-    fun showDialog(context: Context, title: String, message: String): AlertDialog {
+    fun showDialog(context: Context, title: String, message: String?): AlertDialog {
         val dialog = AlertDialog.Builder(context).setTitle(title).setMessage(message).show()
 
         if (dialog.isShowing) dialog.cancel()

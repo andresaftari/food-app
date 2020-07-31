@@ -4,6 +4,7 @@ import com.andresaftari.foodapi.data.model.Categories
 import com.andresaftari.foodapi.data.model.Meals
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 // This interface will gather every available data from the directed API path
 interface ApiService {
@@ -14,4 +15,8 @@ interface ApiService {
     // getCategories will gather every available Meal Categories in the API
     @GET("categories.php")
     fun getCategories(): Call<Categories>
+
+    // getMealByCategory will gather every available Meal based on the chosen category
+    @GET("filter.php")
+    fun getMealByCategory(@Query("c") categoryName: String): Call<Meals>
 }

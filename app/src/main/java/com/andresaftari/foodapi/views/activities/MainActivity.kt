@@ -1,8 +1,8 @@
 package com.andresaftari.foodapi.views.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.andresaftari.foodapi.R
@@ -15,8 +15,15 @@ import com.andresaftari.foodapi.utils.presenter.HomePresenter
 import com.andresaftari.foodapi.views.HomeView
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : AppCompatActivity(),
     HomeView {
+
+    companion object {
+        const val EXTRA_CATEGORY = "category"
+        const val EXTRA_POSITION = "position"
+    }
+
     // Presenter initiation
     private lateinit var presenter: HomePresenter
 

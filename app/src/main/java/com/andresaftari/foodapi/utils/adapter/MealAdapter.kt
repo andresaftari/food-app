@@ -44,9 +44,9 @@ class MealAdapter(private val list: List<Meal>) :
         // Binding data from Meal with View
         fun bind(meal: Meal) {
             with(itemView) {
-                    Glide.with(context)
-                        .load(meal.strMealThumb)
-                        .into(iv_mealThumb)
+                Glide.with(context)
+                    .load(meal.strMealThumb)
+                    .into(iv_mealThumb)
 
                 tv_mealName.text = meal.strMeal
             }

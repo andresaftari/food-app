@@ -1,14 +1,17 @@
 package com.andresaftari.foodapi.utils.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andresaftari.foodapi.R
 import com.andresaftari.foodapi.data.local.Category
+import com.andresaftari.foodapi.views.activities.CategoryActivity
+import com.andresaftari.foodapi.views.activities.MainActivity
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.item_category.view.*
+import java.io.Serializable
 
 class CategoryAdapter(private val list: List<Category>) :
     RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
@@ -20,6 +23,7 @@ class CategoryAdapter(private val list: List<Category>) :
                 .from(parent.context)
                 .inflate(R.layout.item_category, parent, false)
         )
+
     // getItemCount used to gather size of the items needed (our List of Category size)
     override fun getItemCount(): Int = list.size
 
@@ -28,14 +32,14 @@ class CategoryAdapter(private val list: List<Category>) :
         // Bind data with ViewHolder for each item positioned in the list
         holder.bind(list[position])
 
-        val categories = list[position]
         // Create Snackbar notification for every single item when clicked
         holder.itemView.setOnClickListener {
-            Snackbar.make(
-                holder.itemView,
-                "Hitted ${categories.strCategory}!",
-                Snackbar.LENGTH_SHORT
-            ).show()
+            val intent = Intent(holder.itemView.context, CategoryActivity::class.java).apply {
+                putExtra(MainActivity.EXTRA_CATEGORY, list as Serializable)
+                putExtra(MainActivity.EXTRA_POSITION, position)
+            }
+
+            holder.itemView.context.startActivity(intent)
         }
     }
 
