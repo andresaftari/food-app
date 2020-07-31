@@ -10,7 +10,7 @@ interface HomeView {
 
     // setMeals used to inject List of Meal data
     fun setMeals(meals: List<Meal>)
-    // setMeals used to inject List of Category data
+    // setCategories used to inject List of Category data
     fun setCategories(categories: List<Category>)
 
     fun onErrorLoading(message: String?)
