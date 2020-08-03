@@ -55,13 +55,13 @@ class CategoryFragment : Fragment(), CategoryView {
     // Show shimmer and progress bar when loading data
     override fun showLoading() {
         pb_loading_cat?.visibility = View.VISIBLE
-        shimmer_selectedCat.visibility = View.VISIBLE
+        shimmer_selectedCat?.visibility = View.VISIBLE
     }
 
     // Hide shimmer and progress bar when data loaded
     override fun hideLoading() {
         pb_loading_cat?.visibility = View.GONE
-        shimmer_selectedCat.visibility = View.GONE
+        shimmer_selectedCat?.visibility = View.GONE
     }
 
     // Inject meals to RecyclerView rv_selectedCat
