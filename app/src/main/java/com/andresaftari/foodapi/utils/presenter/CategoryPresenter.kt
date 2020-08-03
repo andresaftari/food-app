@@ -40,7 +40,7 @@ class CategoryPresenter(private val view: CategoryView) {
 
                 // Send the fail Logs to Logcat (i) section for error details
                 Log.i(
-                    "HomePresenter.meals",
+                    "CategoryPresenter.meals",
                     "Failed! ${t.message} --- ${t.printStackTrace()}"
                 )
             }
