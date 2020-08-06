@@ -19,11 +19,11 @@ class CategoryActivity : AppCompatActivity() {
     }
 
     private fun initIntent() {
-        val categories = intent.getSerializableExtra(MainActivity.EXTRA_CATEGORY) as List<Category>
+        val categories = intent?.getSerializableExtra(MainActivity.EXTRA_CATEGORY) as List<Category>
         val position = intent.getIntExtra(MainActivity.EXTRA_POSITION, 0)
         val adapter = CategoryPagerAdapter(supportFragmentManager, categories)
 
-        main_pager.adapter = adapter
+        main_pager?.adapter = adapter
         tabs.setupWithViewPager(main_pager)
         main_pager.setCurrentItem(position, true)
 

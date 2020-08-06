@@ -1,13 +1,14 @@
 package com.andresaftari.foodapi.utils.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.andresaftari.foodapi.R
 import com.andresaftari.foodapi.data.local.Meal
+import com.andresaftari.foodapi.views.activities.DetailActivity
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.item_selected_category.view.*
 
 class SelectedCategoryAdapter(private val list: List<Meal>) :
@@ -29,14 +30,13 @@ class SelectedCategoryAdapter(private val list: List<Meal>) :
         // Bind data with ViewHolder for each item positioned in the list
         holder.bind(list[position])
 
-        val meals = list[position]
-        // Create Snackbar notification for every single item when clicked
+        val meal = list[position]
+        // Move to DetailActivity after clicking selected meal
         holder.itemView.setOnClickListener {
-            Snackbar.make(
-                holder.itemView,
-                "Hitted ${meals.strMeal}!",
-                Snackbar.LENGTH_SHORT
-            ).show()
+            val intent = Intent(holder.itemView.context, DetailActivity::class.java).apply {
+                putExtra(DetailActivity.EXTRA_DETAIL, meal.strMeal)
+            }
+            holder.itemView.context.startActivity(intent)
         }
     }
 

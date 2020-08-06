@@ -19,4 +19,8 @@ interface ApiService {
     // getMealByCategory will gather every available Meal based on the chosen category
     @GET("filter.php")
     fun getMealByCategory(@Query("c") categoryName: String): Call<Meals>
+
+    // getMealByName will gather every available Meal based on the searched name
+    @GET("search.php")
+    fun getMealByName(@Query("s") mealName: String): Call<Meals>
 }

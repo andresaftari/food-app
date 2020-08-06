@@ -33,6 +33,7 @@ class CategoryFragment : Fragment(), CategoryView {
                 text = arguments!!
                     .getString(CategoryPagerAdapter.EXTRA_DATA_DESC)
                     ?.replace("\r\n\r\n", "\n\n")
+                    ?.replace("\r\n", "\n\n")
 
                 // Give the scrolling ability to the tv_detailCat if the description is overflowed
                 movementMethod = ScrollingMovementMethod()
@@ -69,7 +70,7 @@ class CategoryFragment : Fragment(), CategoryView {
         val selectedCategoryAdapter = SelectedCategoryAdapter(meals)
 
         // Apply adapter to rv_header
-        rv_selectedCat.apply {
+        rv_selectedCat?.apply {
             adapter = selectedCategoryAdapter
             // GridLayoutManager setup
             layoutManager = GridLayoutManager(activity!!, 2)

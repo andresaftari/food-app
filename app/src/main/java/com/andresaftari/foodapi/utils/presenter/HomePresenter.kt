@@ -18,7 +18,7 @@ class HomePresenter(private val view: HomeView) {
         view.showLoading()
 
         // Initiation of "Meals" model calling
-        val callMeals: Call<Meals> = ApiUtils().getAPI().getMeal()
+        val callMeals = ApiUtils().getAPI().getMeal()
 
         // Callback the "Meals" model
         callMeals.enqueue(object : Callback<Meals> {

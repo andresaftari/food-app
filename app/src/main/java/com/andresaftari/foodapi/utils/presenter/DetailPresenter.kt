@@ -3,7 +3,7 @@ package com.andresaftari.foodapi.utils.presenter
 import android.util.Log
 import com.andresaftari.foodapi.data.model.Meals
 import com.andresaftari.foodapi.utils.api.ApiUtils
-import com.andresaftari.foodapi.views.CategoryView
+import com.andresaftari.foodapi.views.DetailView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,13 +11,13 @@ import retrofit2.Response
 /* This "Presenter" used to process data from API and Models, it connects the communication
 * between "Model" (with API) and "View"
 */
-class CategoryPresenter(private val view: CategoryView) {
-    fun getMealSelectedCategory(categoryName: String) {
-        // Start the loading indicator when getMealSelectedCategory is executed
+class DetailPresenter(private val view: DetailView) {
+    fun getMealByName(mealName: String) {
+        // Start the loading indicator when getMealByName is executed
         view.showLoading()
 
-        // Initiation of "Meals" model calling by finding the same category name
-        val callMeals = ApiUtils().getAPI().getMealByCategory(categoryName)
+        // Initiation of "Meals" model calling
+        val callMeals = ApiUtils().getAPI().getMealByName(mealName)
 
         // Callback the "Meals" model
         callMeals.enqueue(object : Callback<Meals> {
@@ -27,10 +27,11 @@ class CategoryPresenter(private val view: CategoryView) {
 
                 // Check whether the response is successful or not and it is null or not
                 if (response.isSuccessful && response.body() != null)
-                // If the response is successful and not null, set the response body with meals
-                    view.setMeal(response.body()!!.meals)
+                // If the response is successful and not null, set the response body with first meal
+                    view.setMeal(response.body()!!.meals[0])
+                else
                 // If the response is failed, set the response body with error message
-                else view.onErrorLoading(response.message())
+                    view.hideLoading()
             }
 
             override fun onFailure(call: Call<Meals>, t: Throwable) {
@@ -40,7 +41,7 @@ class CategoryPresenter(private val view: CategoryView) {
 
                 // Send the fail Logs to Logcat (i) section for error details
                 Log.i(
-                    "CategoryPresenter.meals",
+                    "DetailPresenter.meals",
                     "Failed! ${t.message} --- ${t.printStackTrace()}"
                 )
             }

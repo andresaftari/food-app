@@ -1,5 +1,6 @@
 package com.andresaftari.foodapi.views.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -36,18 +37,22 @@ class MainActivity : AppCompatActivity(),
 
         presenter.getMeals()
         presenter.getCategories()
+
+        btn_about?.setOnClickListener { startActivity(Intent(this, AboutActivity::class.java)) }
     }
 
     // Show shimmers when loading data
     override fun showLoading() {
-        header_shimmer.visibility = View.VISIBLE
-        category_shimmer.visibility = View.VISIBLE
+        header_shimmer?.visibility = View.VISIBLE
+        category_shimmer?.visibility = View.VISIBLE
+        btn_about?.visibility = View.GONE
     }
 
     // Hide shimmers when data loaded
     override fun hideLoading() {
-        header_shimmer.visibility = View.GONE
-        category_shimmer.visibility = View.GONE
+        header_shimmer?.visibility = View.GONE
+        category_shimmer?.visibility = View.GONE
+        btn_about?.visibility = View.VISIBLE
     }
 
     // Inject meals to RecyclerView rv_header

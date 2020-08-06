@@ -5,14 +5,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:fontFamily">@font/highlandgothicflf</item>
+        <item name="android:fontFamily">@font/righteous</item>
     </style>
 
     <style name="AppBarLayoutTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="colorControlNormal">#0072ff</item>
         <item name="titleTextColor">#0072ff</item>
     </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
