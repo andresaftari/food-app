@@ -3,6 +3,7 @@ package com.andresaftari.foodapi.views.activities
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,26 +16,92 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_detail.*
 
 class DetailActivity : AppCompatActivity(), DetailView {
-    private lateinit var detailPresenter: DetailPresenter
-
     companion object {
         const val EXTRA_DETAIL = "extra_detail"
     }
+
+    // Presenter initiation
+    private lateinit var detailPresenter: DetailPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
+        // Call the custom actionBar function
         setupActionBar()
 
         if (intent.hasExtra(EXTRA_DETAIL)) {
+            // Set the presenter for this View if intent has EXTRA_DETAIL data
             detailPresenter = DetailPresenter(this)
 
+            // Get intent data with EXTRA_DETAIL data and set the presenter with it
             val detailExtra = intent.getStringExtra(EXTRA_DETAIL)!!
             detailPresenter.getMealByName(detailExtra)
         }
     }
 
+    // Show progressBar when loading data
+    override fun showLoading() {
+        pb_loading_detail?.visibility = View.VISIBLE
+    }
+
+    // Hide progressBar when loading data
+    override fun hideLoading() {
+        pb_loading_detail?.visibility = View.GONE
+    }
+
+    // This function used to inject meal details this activity
+    override fun setMeal(meals: Meal) {
+        // Set up the meal name as Collapsing Toolbar title
+        collapsing_toolbar.title = meals.strMeal
+
+        // Set the meal thumbnail for this activity
+        Glide.with(this)
+            .load(meals.strMealThumb)
+            .into(iv_mealThumbDetail)
+
+        // Set the meal category name and origin
+        tv_dotCatDetail.text = meals.strCategory
+        tv_dotCountryDetail.text = meals.strArea
+
+        // Set the meal instructions
+        tv_dotInstructionDetail.apply {
+            text = meals.strInstructions
+                .replace("\r\n\r\n", "\n\n")
+                .replace("\r\n", "\n\n")
+        }
+        setupActionBar()
+
+        // Call the ingredient setup function
+        setUpIngredient(meals)
+
+        // Set the button to open the Youtube video of this recipe when it's clicked
+        btn_youtube.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            startActivity(intent.setData(Uri.parse(meals.strYoutube)))
+        }
+
+        // Set the button to open the Source page of this recipe when it's clicked
+        btn_source.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            startActivity(intent.setData(Uri.parse(meals.strSource)))
+        }
+    }
+
+    // Start the "Back" button to Home activity
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+        return true
+    }
+
+    // Initialization of dialog when error occurred
+    override fun onErrorLoading(message: String?) {
+        ApiUtils().showDialog(this, "Failed to fetch data!", message!!)
+    }
+
+    // If ingredients are not empty, show them and the measurement in this activity
     private fun setUpIngredient(meals: Meal) {
         if (meals.strIngredient1.isNotEmpty()) ingredient.append("\n \u2022 ${meals.strIngredient1}")
         if (meals.strIngredient2.isNotEmpty()) ingredient.append("\n \u2022 ${meals.strIngredient2}")
@@ -99,8 +166,11 @@ class DetailActivity : AppCompatActivity(), DetailView {
             tv_measureDetail.append("\n \u2022 ${meals.strMeasure20}")
     }
 
+    // Set the custom toolbar as an actionBar for this activity
     private fun setupActionBar() {
         setSupportActionBar(toolbar)
+
+        // set the CollapsingToolbar when collapse change colors
         collapsing_toolbar.apply {
             setContentScrimColor(
                 ContextCompat.getColor(
@@ -121,47 +191,8 @@ class DetailActivity : AppCompatActivity(), DetailView {
                 )
             )
         }
-    }
 
-    override fun showLoading() {
-        pb_loading_detail?.visibility = View.VISIBLE
-    }
-
-    override fun hideLoading() {
-        pb_loading_detail?.visibility = View.GONE
-    }
-
-    override fun setMeal(meals: Meal) {
-        collapsing_toolbar.title = meals.strMeal
-
-        Glide.with(this)
-            .load(meals.strMealThumb)
-            .into(iv_mealThumbDetail)
-
-        tv_dotCatDetail.text = meals.strCategory
-        tv_dotCountryDetail.text = meals.strArea
-
-        tv_dotInstructionDetail.apply {
-            text = meals.strInstructions
-                .replace("\r\n\r\n", "\n\n")
-                .replace("\r\n", "\n\n")
-        }
-        setupActionBar()
-
-        setUpIngredient(meals)
-
-        btn_youtube.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            startActivity(intent.setData(Uri.parse(meals.strYoutube)))
-        }
-
-        btn_source.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            startActivity(intent.setData(Uri.parse(meals.strSource)))
-        }
-    }
-
-    override fun onErrorLoading(message: String?) {
-        ApiUtils().showDialog(this, "Failed to fetch data!", message!!)
+        // Set the actionBar with custom toolbar and set "Back" menu
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

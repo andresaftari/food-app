@@ -12,8 +12,6 @@
     <string name="instructions">INSTRUCTIONS</string>
     <string name="dot_loading">. . .</string>
     <string name="Ingredients">INGREDIENTS</string>
-    <string name="youtube">YOUTUBE</string>
-    <string name="source">SOURCE</string>
     <string name="favorite">Favorite</string>
     <string name="about">ABOUT ME</string>
     <string name="name">Name:</string>
@@ -21,4 +19,8 @@
     <string name="email">Email</string>
     <string name="instagram">Instagram</string>
     <string name="copyright">Copyright 2020 © Andre Saftari</string>
+
+    <!-- Button -->
+    <string name="youtube">YOUTUBE</string>
+    <string name="source">SOURCE</string>
 </resources>

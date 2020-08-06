@@ -16,10 +16,7 @@ import com.andresaftari.foodapi.utils.presenter.HomePresenter
 import com.andresaftari.foodapi.views.HomeView
 import kotlinx.android.synthetic.main.activity_main.*
 
-
-class MainActivity : AppCompatActivity(),
-    HomeView {
-
+class MainActivity : AppCompatActivity(), HomeView {
     companion object {
         const val EXTRA_CATEGORY = "category"
         const val EXTRA_POSITION = "position"
@@ -38,6 +35,7 @@ class MainActivity : AppCompatActivity(),
         presenter.getMeals()
         presenter.getCategories()
 
+        // Intent to move into About Me activity
         btn_about?.setOnClickListener { startActivity(Intent(this, AboutActivity::class.java)) }
     }
 
